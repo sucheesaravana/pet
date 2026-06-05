@@ -1,0 +1,750 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Segoe UI',sans-serif;
+
+}
+
+body{
+
+    background:#f7f2ef;
+
+}
+
+.breed-container{
+
+    width:95%;
+
+    margin:auto;
+
+    padding:40px 0;
+
+}
+
+/* Hero Section */
+
+.hero{
+
+    text-align:center;
+
+    padding:40px 0;
+
+}
+
+.hero h1{
+
+    font-size:60px;
+
+    font-weight:800;
+
+    color:#111;
+
+    line-height:1.2;
+
+}
+
+.hero h1 span{
+
+    color:#c43a3a;
+
+}
+
+.hero p{
+
+    margin-top:15px;
+
+    color:#666;
+
+    font-size:18px;
+
+}
+
+.shop-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    margin-top:35px;
+
+}
+
+.shop-card{
+
+    background:#fff;
+
+    padding:20px 35px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.shop-card img{
+
+    width:45px;
+
+    height:45px;
+
+}
+
+.shop-card h4{
+
+    margin-bottom:5px;
+
+}
+
+.shop-card p{
+
+    font-size:14px;
+
+}
+
+/* Trending Section */
+
+.section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:50px 0 20px;
+
+}
+
+.section-title h2{
+
+    font-size:40px;
+
+    color:#111;
+
+}
+
+.section-title a{
+
+    color:#c43a3a;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.breed-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+}
+
+.breed-card{
+
+    background:#fff;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+}
+
+.breed-card img{
+
+    width:100%;
+
+    height:320px;
+
+    object-fit:cover;
+
+}
+
+.breed-info{
+
+    padding:20px;
+
+}
+
+.tag{
+
+    color:#3b7b7b;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+}
+
+.breed-info h3{
+
+    margin:10px 0;
+
+    font-size:28px;
+
+}
+
+.breed-info p{
+
+    color:#666;
+
+    line-height:1.6;
+
+}
+
+/* Spotlight Section */
+
+.spotlight{
+
+    margin-top:70px;
+
+    background:#efe7e3;
+
+    border-radius:40px;
+
+    padding:60px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    align-items:center;
+
+    gap:50px;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    background:#fff;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.spotlight h2{
+
+    font-size:60px;
+
+    line-height:1.1;
+
+    margin-bottom:20px;
+
+}
+
+.spotlight p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+
+}
+
+.btn-group{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.btn-red{
+
+    background:#c43a3a;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    padding:14px 30px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.btn-white{
+
+    background:#fff;
+
+    color:#111;
+
+    text-decoration:none;
+
+    padding:14px 30px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.spotlight-image{
+
+    position:relative;
+
+}
+
+.spotlight-image img{
+
+    width:100%;
+
+    border-radius:30px;
+
+}
+
+.rating{
+
+    position:absolute;
+
+    bottom:-20px;
+
+    left:-20px;
+
+    background:#fff;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.1);
+
+    font-size:14px;
+
+}
+
+/* Bottom Cards */
+
+.bottom-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:25px;
+
+    margin-top:70px;
+
+}
+
+.food-card{
+
+    background:#fff;
+
+    border-radius:30px;
+
+    padding:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.food-card img{
+
+    width:300px;
+
+    border-radius:25px;
+
+}
+
+.food-card h3{
+
+    font-size:35px;
+
+    margin-bottom:15px;
+
+}
+
+.food-card ul{
+
+    margin-top:20px;
+
+}
+
+.food-card li{
+
+    margin-bottom:15px;
+
+    color:#444;
+
+}
+
+.health-card{
+
+    background:#f2d84f;
+
+    border-radius:30px;
+
+    padding:35px;
+
+}
+
+.health-card h3{
+
+    font-size:35px;
+
+    margin-bottom:20px;
+
+}
+
+.health-card p{
+
+    line-height:1.7;
+
+    color:#444;
+
+}
+
+.tip-box{
+
+    margin-top:30px;
+
+    background:#fff7d5;
+
+    padding:20px;
+
+    border-radius:20px;
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+.breed-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+.spotlight{
+
+    grid-template-columns:1fr;
+
+}
+
+.bottom-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.hero h1{
+
+    font-size:40px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.breed-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.shop-buttons{
+
+    flex-direction:column;
+
+}
+
+.hero h1{
+
+    font-size:32px;
+
+}
+
+}
+
+</style>
+
+<div class="breed-container">
+
+    <!-- Hero -->
+
+    <section class="hero">
+
+        <h1>Curated for your <span>unique</span> companion.</h1>
+
+        <p>
+
+            Every breed has a story, a personality, and specific needs.
+
+            Select your pet type to explore tailored essentials.
+
+        </p>
+
+        <div class="shop-buttons">
+
+            <div class="shop-card">
+
+                <i class="fa-solid fa-paw"></i>
+
+                <div>
+
+                    <h4>Shop for Dogs</h4>
+
+                    <p>32+ Breeds curated</p>
+
+                </div>
+
+            </div>
+
+            <div class="shop-card">
+
+                <i class="fa-solid fa-paw"></i>
+                <div>
+
+                    <h4>Shop for Cats</h4>
+
+                    <p>18+ Breeds curated</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Trending Breeds -->
+
+    <div class="section-title">
+
+        <h2>Trending Dog Breeds</h2>
+
+        <a href="#">View All Breeds →</a>
+
+    </div>
+
+    <div class="breed-grid">
+
+        <div class="breed-card">
+
+            <img src="{% static 'images/img. 42.png' %}" alt="">
+
+            <div class="breed-info">
+
+                <span class="tag">Large Breed</span>
+
+                <h3>Golden Retriever</h3>
+
+                <p>Energetic, Loyal & High-Maintenance Coat.</p>
+
+            </div>
+
+        </div>
+
+        <div class="breed-card">
+
+            <img src="{% static 'images/img. 7.png' %}" alt="">
+
+            <div class="breed-info">
+
+                <span class="tag">Apartment Friendly</span>
+
+                <h3>French Bulldog</h3>
+
+                <p>Playful, Smart & Sensitive Digestion.</p>
+
+            </div>
+
+        </div>
+
+        <div class="breed-card">
+
+            <img src="{% static 'images/img. 18.png' %}" alt="">
+
+            <div class="breed-info">
+
+                <span class="tag">Active Herder</span>
+
+                <h3>Welsh Corgi</h3>
+
+                <p>Alert, Spirited & Prone To Joint Care Needs.</p>
+
+            </div>
+
+        </div>
+
+        <div class="breed-card">
+
+            <img src="{% static 'images/img. 16.png' %}" alt="">
+
+            <div class="breed-info">
+
+                <span class="tag">Gentle Giant</span>
+
+                <h3>Maine Coon</h3>
+
+                <p>Social, Fluffy & Requires Premium Hydration.</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Spotlight -->
+
+    <section class="spotlight">
+
+        <div>
+
+            <span class="badge">BREED SPOTLIGHT</span>
+
+            <h2>The Golden Standard</h2>
+
+            <p>
+
+                Known for their lustrous golden coats and unwavering loyalty,
+
+                Golden Retrievers are the heart of the family. However,
+
+                their active lifestyle and sensitive skin require a specialized
+
+                approach to nutrition and grooming.
+
+            </p>
+
+            <div class="btn-group">
+
+                <a href="#" class="btn-red">Explore Shop</a>
+
+                <a href="#" class="btn-white">Care Guide</a>
+
+            </div>
+
+        </div>
+
+        <div class="spotlight-image">
+
+            <img src="{% static 'images/img. 58.png' %}" alt="">
+
+            <div class="rating">
+
+                ⭐ 4.9/5 Rating<br>
+
+                Trusted by over 15,000 owners
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Bottom Cards -->
+
+    <div class="bottom-grid">
+
+        <div class="food-card">
+
+            <div>
+
+                <h3>Recommended Food</h3>
+
+                <p>
+
+                    Goldens need high DHA and Joint support.
+
+                    We've vetted the best formulas for their high
+
+                    energy levels.
+
+                </p>
+
+                <ul>
+
+                    <li>✔️ Grain-Free Premium Salmon</li>
+
+                    <li>✔️ High-Impact Glucosamine Kibble</li>
+
+                </ul>
+
+            </div>
+
+            <img src="{% static 'images/img. 1.png' %}" alt="">
+
+        </div>
+
+        <div class="health-card">
+
+            <h3>Health Check</h3>
+
+            <p>
+
+                Retrievers are prone to hip dysplasia.
+
+                Maintain a healthy weight and incorporate
+
+                Omega-3 supplements early in their adult years.
+
+            </p>
+
+            <div class="tip-box">
+
+                <strong>Vet Tip</strong>
+
+                <p>
+
+                    Regular swimming is the best low-impact
+
+                    exercise for their joints.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

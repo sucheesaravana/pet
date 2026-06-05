@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .favorites-container{
+        max-width:1400px;
+        margin:40px auto;
+        padding:20px;
+    }
+
+    .favorites-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:30px;
+    }
+
+    .favorites-title h1{
+        font-size:42px;
+        font-weight:700;
+        color:#222;
+    }
+
+    .favorites-title p{
+        color:#777;
+        margin-top:8px;
+    }
+
+    .clear-btn{
+        color:#e45d6f;
+        text-decoration:none;
+        font-weight:600;
+    }
+
+    .product-grid{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+        gap:25px;
+        margin-bottom:60px;
+    }
+
+    .product-card{
+        background:#fff;
+        border-radius:25px;
+        overflow:hidden;
+        box-shadow:0 5px 20px rgba(0,0,0,0.08);
+        transition:0.3s;
+        position:relative;
+    }
+
+    .product-card:hover{
+        transform:translateY(-5px);
+    }
+
+    .wishlist-icon{
+        position:absolute;
+        top:15px;
+        right:15px;
+        width:40px;
+        height:40px;
+        background:white;
+        border-radius:50%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:#e63946;
+        font-size:20px;
+        box-shadow:0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .product-image{
+        width:100%;
+        height:240px;
+        object-fit:cover;
+    }
+
+    .product-info{
+        padding:20px;
+    }
+
+    .product-title{
+        font-size:20px;
+        font-weight:600;
+        margin-bottom:10px;
+        color:#222;
+    }
+
+    .rating{
+        color:#f4b400;
+        font-size:14px;
+        margin-bottom:12px;
+    }
+
+    .price{
+        font-size:30px;
+        font-weight:700;
+        color:#111;
+        margin-bottom:20px;
+    }
+
+    .cart-btn{
+        width:100%;
+        border:none;
+        padding:14px;
+        border-radius:40px;
+        background:linear-gradient(90deg,#ff7b7b,#e74c5b);
+        color:white;
+        font-size:16px;
+        font-weight:600;
+        cursor:pointer;
+    }
+
+    .promo-section{
+        background:#f3ece8;
+        border-radius:35px;
+        padding:50px;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        align-items:center;
+        gap:40px;
+        margin-bottom:50px;
+    }
+
+    .tag{
+        display:inline-block;
+        background:#56d7d1;
+        color:white;
+        font-size:12px;
+        padding:6px 12px;
+        border-radius:20px;
+        margin-bottom:20px;
+    }
+
+    .promo-content h2{
+        font-size:38px;
+        color:#222;
+        margin-bottom:15px;
+    }
+
+    .promo-content p{
+        color:#666;
+        line-height:1.7;
+        margin-bottom:25px;
+    }
+
+    .promo-btn{
+        display:inline-block;
+        background:#222;
+        color:white;
+        text-decoration:none;
+        padding:15px 30px;
+        border-radius:40px;
+    }
+
+    .promo-image{
+        position:relative;
+    }
+
+    .promo-image img{
+        width:100%;
+        border-radius:30px;
+        height:450px;
+        object-fit:cover;
+    }
+
+    .testimonial{
+        position:absolute;
+        bottom:20px;
+        left:-20px;
+        background:#f4df62;
+        padding:20px;
+        border-radius:20px;
+        max-width:250px;
+        font-weight:600;
+    }
+
+    .footer-links{
+        background:#f8f2ee;
+        padding:40px;
+        border-radius:30px;
+        display:grid;
+        grid-template-columns:2fr 1fr 1fr;
+        gap:30px;
+    }
+
+    .footer-links h4{
+        margin-bottom:15px;
+        color:#222;
+    }
+
+    .footer-links ul{
+        list-style:none;
+    }
+
+    .footer-links ul li{
+        margin-bottom:10px;
+    }
+
+    .footer-links a{
+        text-decoration:none;
+        color:#666;
+    }
+
+    @media(max-width:992px){
+
+        .promo-section{
+            grid-template-columns:1fr;
+        }
+
+        .promo-content h2{
+            font-size:30px;
+        }
+
+        .favorites-title h1{
+            font-size:32px;
+        }
+    }
+</style>
+
+<div class="favorites-container">
+
+    <div class="favorites-header">
+        <div class="favorites-title">
+            <h1>Your Favorites 🐾</h1>
+            <p>These will make their tails wag!</p>
+        </div>
+
+        <a href="#" class="clear-btn">Clear All</a>
+    </div>
+
+    <div class="product-grid">
+
+        <div class="product-card">
+            <div class="wishlist-icon">❤</div>
+            <img src="{% static 'images/img. 63.png' %}" class="product-image" alt="">
+            <div class="product-info">
+                <h3 class="product-title">Heritage Leather Collar</h3>
+                <div class="rating">★★★★★ (128 Reviews)</div>
+                <div class="price">$45.00</div>
+                <button class="cart-btn">Move to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="wishlist-icon">❤</div>
+            <img src="{% static 'images/img. 71.png' %}" class="product-image" alt="">
+            <div class="product-info">
+                <h3 class="product-title">Velvet Cloud Bed</h3>
+                <div class="rating">★★★★★ (342 Reviews)</div>
+                <div class="price">$89.00</div>
+                <button class="cart-btn">Move to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="wishlist-icon">❤</div>
+            <img src="{% static 'images/img. 56.png' %}" class="product-image" alt="">
+            <div class="product-info">
+                <h3 class="product-title">Nature-Tug Hemp Toy</h3>
+                <div class="rating">★★★★☆ (56 Reviews)</div>
+                <div class="price">$18.50</div>
+                <button class="cart-btn">Move to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="wishlist-icon">❤</div>
+            <img src="{% static 'images/img. 67.png' %}" class="product-image" alt="">
+            <div class="product-info">
+                <h3 class="product-title">SmartFlow Auto Feeder</h3>
+                <div class="rating">★★★★★ (210 Reviews)</div>
+                <div class="price">$120.00</div>
+                <button class="cart-btn">Move to Cart</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="promo-section">
+
+        <div class="promo-content">
+            <span class="tag">TRENDING NOW</span>
+
+            <h2>Don't forget the essentials for your weekend adventures!</h2>
+
+            <p>
+                Our top-rated travel kit is currently on sale.
+                Keep your furry friend comfortable wherever
+                the trail leads.
+            </p>
+
+            <a href="#" class="promo-btn">
+                Explore Travel Collection →
+            </a>
+        </div>
+
+        <div class="promo-image">
+            <img src="{% static 'images/img. 42.png' %}" alt="Dog">
+            <div class="testimonial">
+                “The best gear we've ever bought for Luna!” <br>
+                <small>— Sarah K.</small>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-links">
+
+        <div>
+            <h4>PAWLY</h4>
+            <p>
+                Elevating the lives of pets and their humans through
+                premium essentials and mindful care guides.
+            </p>
+        </div>
+
+        <div>
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="#">Nutrition Guide</a></li>
+                <li><a href="#">Wellness Tracker</a></li>
+                <li><a href="#">Shipping Info</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Support</h4>
+            <ul>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

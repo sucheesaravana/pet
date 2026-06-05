@@ -1,0 +1,701 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+
+    *{
+
+        margin:0;
+
+        padding:0;
+
+        box-sizing:border-box;
+
+        font-family:'Segoe UI',sans-serif;
+
+    }
+
+    body{
+
+        background:#f7f2ef;
+
+    }
+
+    .cat-page{
+
+        width:95%;
+
+        margin:30px auto;
+
+    }
+
+    /* Hero Section */
+
+    .hero{
+
+        position:relative;
+
+        height:500px;
+
+        border-radius:30px;
+
+        overflow:hidden;
+
+       background:url("{% static 'images/img. 14.png' %}") center center/cover;
+
+        display:flex;
+
+        align-items:center;
+
+        padding:60px;
+
+    }
+
+    .hero::before{
+
+        content:'';
+
+        position:absolute;
+
+        inset:0;
+
+        background:rgba(0,0,0,0.25);
+
+    }
+
+    .hero-content{
+
+        position:relative;
+
+        z-index:2;
+
+        max-width:500px;
+
+        color:white;
+
+    }
+
+    .tag{
+
+        display:inline-block;
+
+        background:#f5dc63;
+
+        color:#222;
+
+        padding:8px 18px;
+
+        border-radius:20px;
+
+        font-size:13px;
+
+        font-weight:600;
+
+        margin-bottom:20px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:60px;
+
+        line-height:1.1;
+
+        margin-bottom:20px;
+
+    }
+
+    .hero-content p{
+
+        font-size:18px;
+
+        margin-bottom:30px;
+
+    }
+
+    .hero-btn{
+
+        display:inline-block;
+
+        text-decoration:none;
+
+        background:#ef5b5b;
+
+        color:white;
+
+        padding:15px 35px;
+
+        border-radius:30px;
+
+        font-weight:600;
+
+    }
+
+    /* Categories */
+
+    .categories{
+
+        display:grid;
+
+        grid-template-columns:repeat(4,1fr);
+
+        gap:25px;
+
+        margin:40px 0;
+
+    }
+
+    .category-box{
+
+        background:#efe8e3;
+
+        border-radius:25px;
+
+        text-align:center;
+
+        padding:35px;
+
+        transition:.3s;
+
+    }
+
+    .category-box:hover{
+
+        transform:translateY(-5px);
+
+    }
+
+    .category-icon{
+
+        width:70px;
+
+        height:70px;
+
+        border-radius:50%;
+
+        background:white;
+
+        margin:auto;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        font-size:28px;
+
+    }
+
+    .category-box h4{
+
+        margin-top:20px;
+
+        color:#333;
+
+    }
+
+    /* Products Layout */
+
+    .shop-section{
+
+        display:flex;
+
+        gap:40px;
+
+    }
+
+    /* Sidebar */
+
+    .sidebar{
+
+        width:250px;
+
+    }
+
+    .sidebar h2{
+
+        margin-bottom:25px;
+
+    }
+
+    .filter-group{
+
+        margin-bottom:30px;
+
+    }
+
+    .filter-group h4{
+
+        margin-bottom:12px;
+
+        color:#555;
+
+    }
+
+    .filter-group label{
+
+        display:block;
+
+        margin:10px 0;
+
+        color:#666;
+
+    }
+
+    /* Products */
+
+    .products{
+
+        flex:1;
+
+    }
+
+    .section-header{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-bottom:25px;
+
+    }
+
+    .section-header h2{
+
+        font-size:38px;
+
+        color:#222;
+
+    }
+
+    .product-grid{
+
+        display:grid;
+
+        grid-template-columns:repeat(3,1fr);
+
+        gap:25px;
+
+    }
+
+    .card{
+
+        background:white;
+
+        border-radius:25px;
+
+        overflow:hidden;
+
+        padding:15px;
+
+        box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    }
+
+    .card img{
+
+        width:100%;
+
+        height:260px;
+
+        object-fit:cover;
+
+        border-radius:20px;
+
+    }
+
+    .card h3{
+
+        margin-top:15px;
+
+        color:#222;
+
+    }
+
+    .card p{
+
+        color:#777;
+
+        margin:8px 0;
+
+    }
+
+    .price-cart{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-top:15px;
+
+    }
+
+    .price{
+
+        color:#e74c3c;
+
+        font-size:24px;
+
+        font-weight:bold;
+
+    }
+
+    .cart-btn{
+
+        width:45px;
+
+        height:45px;
+
+        border-radius:50%;
+
+        background:#00796b;
+
+        color:white;
+
+        border:none;
+
+        cursor:pointer;
+
+        font-size:20px;
+
+    }
+
+    .load-btn{
+
+        display:block;
+
+        margin:40px auto;
+
+        border:none;
+
+        background:#e6ddd7;
+
+        padding:15px 40px;
+
+        border-radius:30px;
+
+        cursor:pointer;
+
+        font-weight:600;
+
+    }
+
+    @media(max-width:992px){
+
+        .shop-section{
+
+            flex-direction:column;
+
+        }
+
+        .sidebar{
+
+            width:100%;
+
+        }
+
+        .product-grid{
+
+            grid-template-columns:repeat(2,1fr);
+
+        }
+
+        .categories{
+
+            grid-template-columns:repeat(2,1fr);
+
+        }
+
+        .hero-content h1{
+
+            font-size:45px;
+
+        }
+
+    }
+
+    @media(max-width:768px){
+
+        .product-grid{
+
+            grid-template-columns:1fr;
+
+        }
+
+        .categories{
+
+            grid-template-columns:1fr;
+
+        }
+
+        .hero{
+
+            padding:30px;
+
+            height:400px;
+
+        }
+
+        .hero-content h1{
+
+            font-size:35px;
+
+        }
+
+    }
+
+</style>
+
+<div class="cat-page">
+
+    <!-- Hero Banner -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="tag">NEW COLLECTION</span>
+
+            <h1>Purr-fect Picks for Your Cat</h1>
+
+            <p>
+
+                From gourmet treats to cozy retreats,
+
+                discover everything your feline friend desires.
+
+            </p>
+
+            <a href="#" class="hero-btn">Explore Favorites</a>
+
+        </div>
+
+    </section>
+
+    <!-- Category Icons -->
+
+    <div class="categories">
+
+        <div class="category-box">
+
+            <div class="category-icon">🍽️</div>
+
+            <h4>Cat Food</h4>
+
+        </div>
+
+        <div class="category-box">
+
+            <div class="category-icon">✂️</div>
+
+            <h4>Grooming</h4>
+
+        </div>
+
+        <div class="category-box">
+
+            <div class="category-icon">🦴</div>
+
+            <h4>Litter & Accessories</h4>
+
+        </div>
+
+        <div class="category-box">
+
+            <div class="category-icon">🚗</div>
+
+            <h4>Toys</h4>
+
+        </div>
+
+    </div>
+
+    <!-- Products -->
+
+    <div class="shop-section">
+
+        <div class="sidebar">
+
+            <h2>Filters</h2>
+
+            <div class="filter-group">
+
+                <h4>Price Range</h4>
+
+                <input type="range">
+
+            </div>
+
+            <div class="filter-group">
+
+                <h4>Brands</h4>
+
+                <label><input type="radio"> Royal Canin</label>
+
+                <label><input type="radio"> Purina One</label>
+
+                <label><input type="radio"> Meow Mix</label>
+
+            </div>
+
+            <div class="filter-group">
+
+                <h4>Rating</h4>
+
+                ⭐⭐⭐⭐⭐ & Up
+
+            </div>
+
+        </div>
+
+        <div class="products">
+
+            <div class="section-header">
+
+                <h2>All Cat Goodies</h2>
+
+                <select>
+
+                    <option>Sort By Popularity</option>
+
+                    <option>Price Low to High</option>
+
+                    <option>Price High to Low</option>
+
+                </select>
+
+            </div>
+
+            <div class="product-grid">
+
+                <div class="card">
+
+                    <img src="https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=500" alt="">
+
+                    <h3>Feather Wand Pro</h3>
+
+                    <p>Your kitty will love this!</p>
+
+                    <div class="price-cart">
+
+                        <span class="price">$12.99</span>
+
+                        <button class="cart-btn">🛒</button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?w=500" alt="">
+
+                    <h3>Cactus Scratch Post</h3>
+
+                    <p>Perfect for active paws!</p>
+
+                    <div class="price-cart">
+
+                        <span class="price">$45.00</span>
+
+                        <button class="cart-btn">🛒</button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500" alt="">
+
+                    <h3>Gourmet Salmon Bites</h3>
+
+                    <p>Pure nutrition, zero fillers</p>
+
+                    <div class="price-cart">
+
+                        <span class="price">$28.99</span>
+
+                        <button class="cart-btn">🛒</button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500" alt="">
+
+                    <h3>Cozy Felt Cave</h3>
+
+                    <p>Nap time just got better</p>
+
+                    <div class="price-cart">
+
+                        <span class="price">$59.00</span>
+
+                        <button class="cart-btn">🛒</button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=500" alt="">
+
+                    <h3>Smart Feeder V2</h3>
+
+                    <p>Meal time on time</p>
+
+                    <div class="price-cart">
+
+                        <span class="price">$89.00</span>
+
+                        <button class="cart-btn">🛒</button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500" alt="">
+
+                    <h3>Velvet Charm Collar</h3>
+
+                    <p>A touch of elegance</p>
+
+                    <div class="price-cart">
+
+                        <span class="price">$18.50</span>
+
+                        <button class="cart-btn">🛒</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="load-btn">
+
+                Load More Treasures
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

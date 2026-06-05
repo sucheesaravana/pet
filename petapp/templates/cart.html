@@ -1,0 +1,365 @@
+{% extends 'base.html' %} {% load static %} {% block content %} <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        background: #f8f4ef;
+    }
+
+    .cart-container {
+        max-width: 1400px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .page-title h1 {
+        font-size: 48px;
+        color: #222;
+        margin-bottom: 10px;
+    }
+
+    .page-title p {
+        color: #666;
+        max-width: 650px;
+        line-height: 1.6;
+        margin-bottom: 35px;
+    }
+
+    .cart-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 35px;
+    }
+
+    /* Delivery Box */
+    .delivery-box {
+        background: white;
+        padding: 25px;
+        border-radius: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .delivery-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .progress {
+        height: 12px;
+        background: #e7e7e7;
+        border-radius: 30px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .progress-bar {
+        width: 82%;
+        height: 100%;
+        background: #138f87;
+    }
+
+    .delivery-text {
+        color: #777;
+        font-size: 14px;
+    }
+
+    /* Cart Heading */
+    .cart-heading {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #222;
+    }
+
+    .item-count {
+        background: #eee;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        margin-left: 10px;
+    }
+
+    /* Cart Item */
+    .cart-item {
+        background: white;
+        border-radius: 25px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .item-left {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .item-left img {
+        width: 90px;
+        height: 90px;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+
+    .item-details h3 {
+        margin-bottom: 8px;
+        color: #222;
+    }
+
+    .item-details p {
+        color: #777;
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    /* Quantity Box */
+    .qty-box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: #f5f5f5;
+        width: max-content;
+        padding: 8px 15px;
+        border-radius: 25px;
+    }
+
+    .qty-box button {
+        border: none;
+        background: none;
+        font-size: 20px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .qty {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    /* Right Side */
+    .item-right {
+        text-align: right;
+    }
+
+    .price {
+        color: #b73a48;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .item-actions a {
+        text-decoration: none;
+        color: #666;
+        margin-left: 15px;
+        font-size: 14px;
+    }
+
+    /* Summary */
+    .summary-card {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 25px;
+    }
+
+    .summary-card h2 {
+        margin-bottom: 25px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        color: #555;
+    }
+
+    .summary-total {
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+        margin-top: 15px;
+    }
+
+    .summary-total h3 {
+        display: flex;
+        justify-content: space-between;
+        color: #111;
+        font-size: 30px;
+    }
+
+    .coupon-box {
+        display: flex;
+        margin: 25px 0;
+    }
+
+    .coupon-box input {
+        flex: 1;
+        border: none;
+        background: #f5f5f5;
+        padding: 14px;
+        border-radius: 30px 0 0 30px;
+        outline: none;
+    }
+
+    .coupon-box button {
+        border: none;
+        background: #222;
+        color: white;
+        padding: 0 20px;
+        border-radius: 0 30px 30px 0;
+        cursor: pointer;
+    }
+
+    .checkout-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 16px;
+        border-radius: 35px;
+        background: linear-gradient(90deg, #ff6f6f, #d9415d);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    /* Premium Card */
+    .premium-card {
+        background: #68ece0;
+        padding: 30px;
+        border-radius: 25px;
+    }
+
+    .premium-card h3 {
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .premium-card p {
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    .premium-card a {
+        display: inline-block;
+        background: white;
+        color: #222;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+    }
+
+    /* Responsive */
+    @media(max-width:992px) {
+        .cart-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .cart-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .item-right {
+            text-align: left;
+        }
+
+        .page-title h1 {
+            font-size: 36px;
+        }
+    }
+</style>
+<div class="cart-container"> <!-- Title -->
+    <div class="page-title">
+        <h1>Your Sanctuary Basket</h1>
+        <p> A curated collection for your furry companions. Review your choices and proceed to the safest paws in town.
+        </p>
+    </div>
+    <div class="cart-layout"> <!-- LEFT SECTION -->
+        <div> <!-- Delivery Box -->
+            <div class="delivery-box">
+                <div class="delivery-header"> <span>ALMOST THERE!</span> <span>$15.00 more for free delivery</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <p class="delivery-text"> Free standard shipping on orders over $100.00 </p>
+            </div> <!-- Cart Heading -->
+            <h2 class="cart-heading"> Current Cart <span class="item-count">3 Items</span> </h2> <!-- ITEM 1 -->
+            <div class="cart-item" data-price="45">
+                <div class="item-left"> <img src="{% static 'images/img. 55.png' %}" alt="">
+                    <div class="item-details">
+                        <h3>Salmon & Sweet Potato Kibble</h3>
+                        <p>12lb Bag • Grain-Free • Organic Ingredients</p>
+                        <div class="qty-box"> <button class="minus">-</button> <span class="qty">1</span> <button
+                                class="plus">+</button> </div>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <div class="price item-total">$45.00</div>
+                    <div class="item-actions"> <a href="#">♡ Save</a> <a href="#">🗑 Remove</a> </div>
+                </div>
+            </div> <!-- ITEM 2 -->
+            <div class="cart-item" data-price="32">
+                <div class="item-left"> <img src="{% static 'images/img. 61.png' %}" alt="">
+                    <div class="item-details">
+                        <h3>Velvet Cloud Sleep Bed</h3>
+                        <p>Medium • Mist Grey • Orthopedic Foam</p>
+                        <div class="qty-box"> <button class="minus">-</button> <span class="qty">1</span> <button
+                                class="plus">+</button> </div>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <div class="price item-total">$32.00</div>
+                    <div class="item-actions"> <a href="#">♡ Save</a> <a href="#">🗑 Remove</a> </div>
+                </div>
+            </div> <!-- ITEM 3 -->
+            <div class="cart-item" data-price="18">
+                <div class="item-left"> <img src="{% static 'images/img. 66.png' %}" alt="">
+                    <div class="item-details">
+                        <h3>Indestructible Chew Bone</h3>
+                        <p>Large • Cherry Red • Natural Rubber</p>
+                        <div class="qty-box"> <button class="minus">-</button> <span class="qty">1</span> <button
+                                class="plus">+</button> </div>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <div class="price item-total">$18.00</div>
+                    <div class="item-actions"> <a href="#">♡ Save</a> <a href="#">🗑 Remove</a> </div>
+                </div>
+            </div>
+        </div> <!-- RIGHT SECTION -->
+        <div>
+            <div class="summary-card">
+                <h2>Order Summary</h2>
+                <div class="summary-row"> <span>Subtotal</span> <span id="subtotal">$95.00</span> </div>
+                <div class="summary-row"> <span>Shipping</span> <span id="shipping">$10.00</span> </div>
+                <div class="summary-row"> <span>Est. Tax</span> <span id="tax">$7.60</span> </div>
+                <div class="summary-total">
+                    <h3> <span>Total</span> <span id="grand-total">$112.60</span> </h3>
+                </div>
+                <div class="coupon-box"> <input type="text" placeholder="PAWLOVER20"> <button>Apply</button> </div> <a href="{% url 'checkout' %}" class="checkout-btn">
+    Proceed to Checkout →
+</a>
+            </div> <!-- Premium Card -->
+            <div class="premium-card">
+                <h3>Join Pawly Premium</h3>
+                <p> Get 5% back on every order and free vet consults. </p> <a href="#">Learn More</a>
+            </div>
+        </div>
+    </div>
+</div> <!-- JavaScript -->
+<script> const cartItems = document.querySelectorAll(".cart-item"); cartItems.forEach(item => { const plusBtn = item.querySelector(".plus"); const minusBtn = item.querySelector(".minus"); const qtyText = item.querySelector(".qty"); const itemTotal = item.querySelector(".item-total"); let price = parseFloat(item.dataset.price); plusBtn.addEventListener("click", () => { let qty = parseInt(qtyText.innerText); qty++; qtyText.innerText = qty; updateItemTotal(); }); minusBtn.addEventListener("click", () => { let qty = parseInt(qtyText.innerText); if(qty > 1){ qty--; qtyText.innerText = qty; updateItemTotal(); } }); function updateItemTotal(){ let qty = parseInt(qtyText.innerText); let total = price * qty; itemTotal.innerText = `$${total.toFixed(2)}`; updateSummary(); } }); function updateSummary(){ let subtotal = 0; document.querySelectorAll(".cart-item").forEach(item => { const qty = parseInt(item.querySelector(".qty").innerText); const price = parseFloat(item.dataset.price); subtotal += qty * price; }); let shipping = 10; let tax = subtotal * 0.08; let grandTotal = subtotal + shipping + tax; document.getElementById("subtotal").innerText = `$${subtotal.toFixed(2)}`; document.getElementById("shipping").innerText = `$${shipping.toFixed(2)}`; document.getElementById("tax").innerText = `$${tax.toFixed(2)}`; document.getElementById("grand-total").innerText = `$${grandTotal.toFixed(2)}`; } </script> {% endblock %}

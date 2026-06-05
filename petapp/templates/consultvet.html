@@ -1,0 +1,855 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    *{
+
+        margin:0;
+
+        padding:0;
+
+        box-sizing:border-box;
+
+        font-family:'Segoe UI',sans-serif;
+
+    }
+
+    body{
+
+        background:#f8f5f1;
+
+    }
+
+    .consult-container{
+
+        width:90%;
+
+        margin:40px auto;
+
+    }
+
+    .top-title span{
+
+        color:#0b7c78;
+
+        font-size:13px;
+
+        font-weight:600;
+
+        letter-spacing:1px;
+
+        text-transform:uppercase;
+
+    }
+
+    .top-title h1{
+
+        font-size:58px;
+
+        font-weight:800;
+
+        color:#222;
+
+        margin-top:10px;
+
+        line-height:1.1;
+
+    }
+
+    .top-title h1 .green{
+
+        color:#0b7c78;
+
+    }
+
+    .top-title p{
+
+        color:#777;
+
+        max-width:650px;
+
+        margin-top:20px;
+
+        line-height:1.8;
+
+        font-size:17px;
+
+    }
+
+    /* Consultation Section */
+
+    .consult-grid{
+
+        display:grid;
+
+        grid-template-columns:1fr 2fr;
+
+        gap:25px;
+
+        margin-top:50px;
+
+    }
+
+    .card{
+
+        background:#fff;
+
+        border-radius:30px;
+
+        padding:25px;
+
+    }
+
+    .card h3{
+
+        font-size:24px;
+
+        margin-bottom:20px;
+
+        color:#222;
+
+    }
+
+    .mode-btn{
+
+        display:block;
+
+        width:100%;
+
+        padding:18px;
+
+        border-radius:18px;
+
+        margin-bottom:15px;
+
+        text-decoration:none;
+
+        font-weight:600;
+
+    }
+
+    .active{
+
+        background:#0b7c78;
+
+        color:white;
+
+    }
+
+    .inactive{
+
+        background:#f4f0eb;
+
+        color:#444;
+
+    }
+
+    .dog-card{
+
+        background:#0b7c78;
+
+        color:white;
+
+        border-radius:30px;
+
+        padding:25px;
+
+        margin-top:25px;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:space-between;
+
+    }
+
+    .dog-card img{
+
+        width:110px;
+
+        height:110px;
+
+        border-radius:50%;
+
+        object-fit:cover;
+
+    }
+
+    .session-card{
+
+        background:#f5eee8;
+
+        border-radius:30px;
+
+        padding:30px;
+
+    }
+
+    .session-header{
+
+        font-size:28px;
+
+        font-weight:700;
+
+        margin-bottom:25px;
+
+    }
+
+    .session-grid{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:30px;
+
+    }
+
+    .options{
+
+        display:grid;
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:15px;
+
+    }
+
+    .option{
+
+        background:white;
+
+        padding:18px;
+
+        border-radius:18px;
+
+        font-weight:600;
+
+    }
+
+    .option.active{
+
+        background:#0b7c78;
+
+        color:white;
+
+    }
+
+    .time-slot{
+
+        background:white;
+
+        padding:15px 20px;
+
+        border-radius:20px;
+
+        margin-bottom:15px;
+
+        font-weight:600;
+
+    }
+
+    .time-slot.active{
+
+        border:2px solid #0b7c78;
+
+        color:#0b7c78;
+
+    }
+
+    .price-box{
+
+        margin-top:25px;
+
+        background:#efe8e1;
+
+        border-radius:25px;
+
+        padding:25px;
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+    }
+
+    .price-box h2{
+
+        color:#222;
+
+    }
+
+    .consult-btn{
+
+        background:#f15b63;
+
+        color:white;
+
+        border:none;
+
+        padding:16px 35px;
+
+        border-radius:30px;
+
+        font-size:16px;
+
+        font-weight:600;
+
+        cursor:pointer;
+
+    }
+
+    /* Wellness Section */
+
+    .wellness{
+
+        background:white;
+
+        border-radius:35px;
+
+        margin-top:60px;
+
+        padding:40px;
+
+        display:grid;
+
+        grid-template-columns:2fr 1fr;
+
+        gap:30px;
+
+    }
+
+    .wellness h2{
+
+        font-size:42px;
+
+        margin:15px 0;
+
+        color:#222;
+
+    }
+
+    .wellness ul{
+
+        margin-left:20px;
+
+        color:#555;
+
+        line-height:2;
+
+    }
+
+    .report-link{
+
+        display:inline-block;
+
+        margin-top:20px;
+
+        color:#f15b63;
+
+        font-weight:600;
+
+        text-decoration:none;
+
+    }
+
+    .products{
+
+        background:#f8f2ec;
+
+        padding:20px;
+
+        border-radius:25px;
+
+    }
+
+    .product-wrap{
+
+        display:flex;
+
+        gap:15px;
+
+        margin-top:15px;
+
+    }
+
+    .product{
+
+        background:white;
+
+        border-radius:20px;
+
+        padding:12px;
+
+        flex:1;
+
+        text-align:center;
+
+    }
+
+    .product img{
+
+        width:100%;
+
+        height:180px;
+
+        object-fit:cover;
+
+        border-radius:15px;
+
+    }
+
+    .product h4{
+
+        margin-top:10px;
+
+        color:#222;
+
+    }
+
+    .product p{
+
+        color:#0b7c78;
+
+        font-weight:700;
+
+    }
+
+    /* Experts */
+
+    .experts{
+
+        margin-top:70px;
+
+    }
+
+    .experts-header{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-bottom:30px;
+
+    }
+
+    .experts-header h2{
+
+        font-size:42px;
+
+        color:#222;
+
+    }
+
+    .experts-header a{
+
+        text-decoration:none;
+
+        background:#dff3ef;
+
+        color:#0b7c78;
+
+        padding:12px 20px;
+
+        border-radius:25px;
+
+        font-weight:600;
+
+    }
+
+    .expert-grid{
+
+        display:grid;
+
+        grid-template-columns:repeat(4,1fr);
+
+        gap:20px;
+
+    }
+
+    .expert-card{
+
+        background:#fff;
+
+        border-radius:25px;
+
+        padding:25px;
+
+        text-align:center;
+
+    }
+
+    .expert-card img{
+
+        width:80px;
+
+        height:80px;
+
+        border-radius:50%;
+
+        object-fit:cover;
+
+        margin-bottom:15px;
+
+    }
+
+    .expert-card h4{
+
+        margin-bottom:5px;
+
+        color:#222;
+
+    }
+
+    .expert-card p{
+
+        color:#777;
+
+        font-size:14px;
+
+    }
+
+    .rating{
+
+        color:#c79600;
+
+        margin-top:10px;
+
+        font-weight:600;
+
+    }
+
+    .team-card{
+
+        background:#0b7c78;
+
+        color:white;
+
+        border-radius:25px;
+
+        padding:30px;
+
+        text-align:center;
+
+    }
+
+    .team-card button{
+
+        margin-top:25px;
+
+        background:white;
+
+        color:#0b7c78;
+
+        border:none;
+
+        padding:14px 30px;
+
+        border-radius:30px;
+
+        font-weight:600;
+
+        cursor:pointer;
+
+    }
+
+    @media(max-width:992px){
+
+        .consult-grid,
+
+        .wellness,
+
+        .expert-grid{
+
+            grid-template-columns:1fr;
+
+        }
+
+        .session-grid{
+
+            grid-template-columns:1fr;
+
+        }
+
+        .top-title h1{
+
+            font-size:40px;
+
+        }
+
+    }
+
+</style>
+
+<div class="consult-container">
+
+    <div class="top-title">
+
+        <span>Professional Care</span>
+
+        <h1>
+
+            Expert vet care,<br>
+
+            <span class="green">right on your rug.</span>
+
+        </h1>
+
+        <p>
+
+            Choose your preferred consultation method and get instant access
+
+            to licensed veterinarians specialized in pet wellness and emergency care.
+
+        </p>
+
+    </div>
+
+    <div class="consult-grid">
+
+        <div>
+
+            <div class="card">
+
+                <h3>Choose Mode</h3>
+
+                <a href="#" class="mode-btn active">
+
+                    💬 Chat <br>
+
+                    <small>Instant Messaging</small>
+
+                </a>
+
+                <a href="#" class="mode-btn inactive">
+
+                    🎥 Video <br>
+
+                    <small>Face-to-Face Call</small>
+
+                </a>
+
+            </div>
+
+            <div class="dog-card">
+
+                <div>
+
+                    <h3>Oliver is ready</h3>
+
+                    <p>Your 3-year-old Golden Retriever is linked to this session.</p>
+
+                </div>
+
+                <img src="{% static 'images/img. 26.png' %}" alt="dog">
+
+            </div>
+
+        </div>
+
+        <div class="session-card">
+
+            <div class="session-header">Session Details</div>
+
+            <div class="session-grid">
+
+                <div>
+
+                    <h4 style="margin-bottom:15px;">Select Issue</h4>
+
+                    <div class="options">
+
+                        <div class="option">Nutrition</div>
+
+                        <div class="option active">General Health</div>
+
+                        <div class="option">Grooming</div>
+
+                        <div class="option">Behavior</div>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h4 style="margin-bottom:15px;">Choose Time Slot</h4>
+
+                    <div class="time-slot active">
+
+                        Today, 2:30 PM
+
+                    </div>
+
+                    <div class="time-slot">
+
+                        Today, 4:00 PM
+
+                    </div>
+
+                    <div class="time-slot">
+
+                        Tomorrow, 10:00 AM
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="price-box">
+
+                <div>
+
+                    <h2>$24.00</h2>
+
+                    <p>For a 20-minute professional consultation</p>
+
+                </div>
+
+                <button class="consult-btn">
+
+                    Start Consultation
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="wellness">
+
+        <div>
+
+            <span style="color:#0b7c78;font-weight:600;">
+
+                Post-Session Advice
+
+            </span>
+
+            <h2>Oliver's Personalized Wellness Plan</h2>
+
+            <ul>
+
+                <li>Incorporate more wet food to increase hydration levels.</li>
+
+                <li>Daily 15-minute gentle grooming sessions.</li>
+
+            </ul>
+
+            <a href="#" class="report-link">
+
+                Download Full Medical Report
+
+            </a>
+
+        </div>
+
+        <div class="products">
+
+            <h4>Suggested Products</h4>
+
+            <div class="product-wrap">
+
+                <div class="product">
+
+                    <img src="{% static 'images/img. 25.png' %}" alt="">
+
+                    <h4>Premium Kibble</h4>
+
+                    <p>$42.00</p>
+
+                </div>
+
+                <div class="product">
+
+                    <img src="{% static 'images/img. 37.png' %}" alt="">
+
+                    <h4>Soft-Touch Brush</h4>
+
+                    <p>$18.50</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="experts">
+
+        <div class="experts-header">
+
+            <h2>Our Resident Experts</h2>
+
+            <a href="#">See All Experts</a>
+
+        </div>
+
+        <div class="expert-grid">
+
+            <div class="expert-card">
+
+                <img src="{% static 'images/img. 27.png' %}">
+
+                <h4>Dr. Sarah Jenkins</h4>
+
+                <p>Internal Medicine</p>
+
+                <div class="rating">★ 4.9</div>
+
+            </div>
+
+            <div class="expert-card">
+
+                <img src="{% static 'images/img. 19.png' %}">
+
+                <h4>Dr. Marcus Thorne</h4>
+
+                <p>Avian Specialist</p>
+
+                <div class="rating">★ 5.0</div>
+
+            </div>
+
+            <div class="expert-card">
+
+                <img src="{% static 'images/img. 10.png' %}">
+
+                <h4>Dr. Elena Rodriguez</h4>
+
+                <p>Senior Wellness</p>
+
+                <div class="rating">★ 4.8</div>
+
+            </div>
+
+            <div class="team-card">
+
+                <h3>And 15 Others</h3>
+
+                <p>Available right now for immediate chat.</p>
+
+                <button>Meet Team</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

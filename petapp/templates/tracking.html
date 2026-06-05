@@ -1,0 +1,551 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="tracking-page">
+
+    <!-- MAIN CONTENT -->
+    <div class="tracking-container">
+
+        <!-- LEFT SECTION -->
+        <div class="left-section">
+
+            <h1>Secure Checkout</h1>
+
+            <p class="subtitle">
+                Almost there! Your furry friend is waiting for their treats.
+            </p>
+
+            <!-- SHIPPING ADDRESS -->
+            <div class="shipping-card">
+
+                <div class="card-header">
+
+                    <h3>🚚 Shipping Address</h3>
+
+                    <span>Edit Addresses</span>
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div>
+                        <label>FIRST NAME</label>
+                        <input type="text" placeholder="suchee">
+                    </div>
+
+                    <div>
+                        <label>LAST NAME</label>
+                        <input type="text" placeholder="Devi">
+                    </div>
+
+                    <div class="full-width">
+                        <label>STREET ADDRESS</label>
+                        <input type="text" placeholder="No 8 KTC Nagar">
+                    </div>
+
+                    <div>
+                        <label>CITY</label>
+                        <input type="text" placeholder="Tirunelveli">
+                    </div>
+
+                    <div>
+                        <label>ZIP CODE</label>
+                        <input type="text" placeholder="78701">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TRACKING CARD -->
+            <div class="tracking-card">
+
+                <h2>Track Recent Treats</h2>
+
+                <p class="order-id">
+                    Order #PWL-2042 • Est. Delivery June 24
+                </p>
+
+                <!-- TRACKING LINE -->
+                <div class="tracking-line">
+
+                    <div class="step active">
+                        <div class="circle"></div>
+                        <p>ORDERED</p>
+                    </div>
+
+                    <div class="line active-line"></div>
+
+                    <div class="step active">
+                        <div class="circle"></div>
+                        <p>PACKED</p>
+                    </div>
+
+                    <div class="line active-line"></div>
+
+                    <div class="step active">
+                        <div class="circle truck">🚚</div>
+                        <p>SHIPPED</p>
+                    </div>
+
+                    <div class="line"></div>
+
+                    <div class="step">
+                        <div class="circle"></div>
+                        <p>DELIVERED</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FEATURES -->
+            <div class="features">
+
+                <span>🔒 SECURE CHECKOUT</span>
+                <span>🌿 ECO PACKAGING</span>
+                <span>🐾 100% PAWS GUARANTEE</span>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="right-section">
+
+            <!-- BASKET -->
+            <div class="basket-card">
+
+                <h3>Your Basket</h3>
+
+                <div class="basket-item">
+
+                    <img src="{% static 'images/img. 55.png' %}" alt="">
+
+                    <div>
+                        <h4>Salmon & Sweet Potato Kibble</h4>
+                        <p>Organic</p>
+                        <span>$45.90</span>
+                    </div>
+
+                </div>
+
+                <div class="basket-item">
+
+                    <img src="{% static 'images/img. 61.png' %}" alt="">
+
+                    <div>
+                        <h4>Velvet Cloud Sleep Bed</h4>
+                        <p>Large</p>
+                        <span>$32.00</span>
+                    </div>
+
+                </div>
+
+                <div class="basket-item">
+
+                    <img src="{% static 'images/img. 66.png' %}" alt="">
+
+                    <div>
+                        <h4>Indestructible Chew Bone</h4>
+                        <p>Large</p>
+                        <span>$18.00</span>
+                    </div>
+
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price-row">
+                        <span>Subtotal</span>
+                        <span>$112.90</span>
+                    </div>
+
+                    <div class="price-row">
+                        <span>Free Delivery</span>
+                        <span class="free">FREE</span>
+                    </div>
+
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span>$112.90</span>
+                    </div>
+
+                </div>
+
+                <p class="mini-text">
+                    30-DAY EASY RETURNS FOR ALL ITEMS
+                </p>
+
+            </div>
+
+            <!-- MESSAGE BOX -->
+            <div class="message-card">
+
+                <h4>“Did someone say treats?”</h4>
+
+                <p>
+                    Join Pawly Rewards to earn 40 points on this order.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f8f2ed;
+}
+
+.tracking-page{
+    width:100%;
+    min-height:100vh;
+    padding:40px 7%;
+}
+
+/* MAIN */
+
+.tracking-container{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:40px;
+}
+
+/* LEFT */
+
+.left-section h1{
+    font-size:42px;
+    color:#2b2222;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#7a7070;
+    margin-bottom:35px;
+}
+
+.shipping-card,
+.tracking-card{
+    background:#f4ece7;
+    border-radius:25px;
+    padding:30px;
+    margin-bottom:30px;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.card-header h3{
+    color:#3d3131;
+}
+
+.card-header span{
+    color:#d44d5f;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.full-width{
+    grid-column:1/3;
+}
+
+.form-grid label{
+    display:block;
+    font-size:12px;
+    margin-bottom:8px;
+    color:#6e6161;
+    font-weight:600;
+}
+
+.form-grid input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#ece4df;
+    outline:none;
+}
+
+/* TRACKING */
+
+.tracking-card h2{
+    margin-bottom:10px;
+    color:#2b2222;
+}
+
+.order-id{
+    color:#8c7e7e;
+    margin-bottom:35px;
+}
+
+.tracking-line{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.step{
+    text-align:center;
+    flex:1;
+}
+
+.circle{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#ddd;
+    margin:auto;
+    margin-bottom:10px;
+}
+
+.active .circle{
+    background:#138f87;
+}
+
+.truck{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:15px;
+}
+
+.step p{
+    font-size:11px;
+    color:#666;
+}
+
+.line{
+    height:4px;
+    background:#ddd;
+    flex:1;
+    margin:0 5px;
+}
+
+.active-line{
+    background:#138f87;
+}
+
+/* FEATURES */
+
+.features{
+    display:flex;
+    gap:25px;
+    margin-top:20px;
+    flex-wrap:wrap;
+    color:#8b7f7f;
+    font-size:13px;
+}
+
+/* RIGHT */
+
+.basket-card{
+    background:#f4ece7;
+    border-radius:25px;
+    padding:28px;
+    margin-bottom:25px;
+}
+
+.basket-card h3{
+    margin-bottom:25px;
+    color:#2f2525;
+}
+
+.basket-item{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.basket-item img{
+    width:70px;
+    height:70px;
+    border-radius:15px;
+    object-fit:cover;
+}
+
+.basket-item h4{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.basket-item p{
+    font-size:13px;
+    color:#777;
+    margin-bottom:5px;
+}
+
+.basket-item span{
+    color:#d44d5f;
+    font-weight:600;
+}
+
+.price-box{
+    margin-top:20px;
+    border-top:1px solid #ddd;
+    padding-top:20px;
+}
+
+.price-row,
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    color:#555;
+}
+
+.total-row{
+    color:#d44d5f;
+    font-size:22px;
+    font-weight:700;
+}
+
+.free{
+    color:#138f87;
+    font-weight:600;
+}
+
+.mini-text{
+    margin-top:20px;
+    text-align:center;
+    font-size:11px;
+    color:#888;
+}
+
+.message-card{
+    background:#b9efe6;
+    padding:25px;
+    border-radius:22px;
+}
+
+.message-card h4{
+    margin-bottom:10px;
+    color:#135b57;
+}
+
+.message-card p{
+    color:#236661;
+    font-size:14px;
+}
+
+/* FOOTER */
+
+.footer{
+    margin-top:90px;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.5fr;
+    gap:40px;
+}
+
+.footer-column h2{
+    color:#d44d5f;
+    margin-bottom:18px;
+}
+
+.footer-column h4{
+    margin-bottom:18px;
+    color:#444;
+}
+
+.footer-column p,
+.footer-column a{
+    color:#777;
+    text-decoration:none;
+    font-size:14px;
+    display:block;
+    margin-bottom:10px;
+    line-height:1.7;
+}
+
+.newsletter{
+    display:flex;
+    margin-top:15px;
+}
+
+.newsletter input{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:20px 0 0 20px;
+    outline:none;
+    background:#ece4df;
+}
+
+.newsletter button{
+    border:none;
+    background:#d44d5f;
+    color:white;
+    padding:0 18px;
+    border-radius:0 20px 20px 0;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+    .tracking-container{
+        grid-template-columns:1fr;
+    }
+
+    .footer{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full-width{
+        grid-column:auto;
+    }
+
+    .tracking-line{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .line{
+        width:4px;
+        height:40px;
+    }
+
+    .footer{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+{% endblock %}

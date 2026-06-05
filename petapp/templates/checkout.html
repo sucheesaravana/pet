@@ -1,0 +1,498 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="checkout-page">
+
+    <!-- LEFT SECTION -->
+    <div class="payment-section">
+
+        <h1>Payment Method</h1>
+
+        <p class="subtitle">
+            Choose how you'd like to fuel your pet's happiness.
+        </p>
+
+        <!-- PAYMENT OPTIONS -->
+        <div class="payment-options">
+
+            <div class="payment-card active">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Card</span>
+            </div>
+
+            <div class="payment-card">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Mobile Banking</span>
+            </div>
+
+            <div class="payment-card">
+                <i class="fa-solid fa-wallet"></i>
+                <span>UPI</span>
+            </div>
+
+        </div>
+
+        <!-- PAYMENT FORM -->
+        <form method="POST" id="checkoutForm">
+
+            {% csrf_token %}
+
+            <div class="payment-form">
+
+                <label>CARDHOLDER NAME</label>
+                <input type="text"
+                       name="cardholder"
+                       placeholder="e.g Suchee"
+                       required>
+
+                <label>CARD NUMBER</label>
+                <input type="text"
+                       name="cardnumber"
+                       placeholder="0000 0000 0000 0000"
+                       required>
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <label>EXPIRY DATE</label>
+
+                        <input type="text"
+                               name="expiry"
+                               placeholder="MM/YY"
+                               required>
+
+                    </div>
+
+                    <div class="col">
+
+                        <label>CVV</label>
+
+                        <input type="password"
+                               name="cvv"
+                               placeholder="***"
+                               required>
+
+                    </div>
+
+                </div>
+
+                <div class="secure-box">
+                    🔒 Your payment details are encrypted and securely stored.
+                </div>
+
+            </div>
+
+            <!-- SHIPPING ADDRESS -->
+            <div class="shipping-section">
+
+                <div class="shipping-header">
+
+                    <h2>Shipping Address</h2>
+
+                    <span>Edit Addresses</span>
+
+                </div>
+
+                <div class="shipping-form">
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label>FIRST NAME</label>
+
+                            <input type="text"
+                                   name="firstname"
+                                   placeholder="Suchee"
+                                   required>
+
+                        </div>
+
+                        <div class="col">
+
+                            <label>LAST NAME</label>
+
+                            <input type="text"
+                                   name="lastname"
+                                   placeholder="Devi"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                    <label>STREET ADDRESS</label>
+
+                    <input type="text"
+                           name="address"
+                           placeholder="no 8, KTC Nagar"
+                           required>
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label>CITY</label>
+
+                            <input type="text"
+                                   name="city"
+                                   placeholder="tirunelveli"
+                                   required>
+
+                        </div>
+
+                        <div class="col">
+
+                            <label>ZIP CODE</label>
+
+                            <input type="text"
+                                   name="zipcode"
+                                   placeholder="78701"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+           <a href="{% url 'order' %}" class="review-btn">
+    Continue to Review →
+</a>
+
+        </form>
+
+    </div>
+
+    <!-- RIGHT SECTION -->
+    <div class="summary-section">
+
+        <h2>Order Summary</h2>
+
+        {% for item in cart_items %}
+
+        <div class="summary-product">
+
+            <img src="{{ item.product.image.url }}"
+                 alt="{{ item.product.name }}">
+
+            <div class="summary-details">
+
+                <h4>{{ item.product.name }}</h4>
+
+                <p>Quantity : {{ item.quantity }}</p>
+
+                <h5>₹ {{ item.total_price }}</h5>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        <div class="price-details">
+
+            <div class="price-row">
+                <span>Subtotal</span>
+                <span>₹ {{ 95 }}</span>
+            </div>
+
+            <div class="price-row">
+                <span>Shipping</span>
+                <span>10</span>
+            </div>
+
+            <div class="price-row">
+                <span>Estimated Taxes</span>
+                <span>₹ 7</span>
+            </div>
+
+            <div class="total-row">
+                <span>Total To Pay</span>
+                <span>₹ {{ 112 }}</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+.checkout-page{
+    width:100%;
+    padding:40px 7%;
+    background:#f8f3ef;
+    display:flex;
+    gap:40px;
+    align-items:flex-start;
+}
+
+/* LEFT */
+
+.payment-section{
+    flex:2;
+}
+
+.payment-section h1{
+    font-size:42px;
+    color:#3f2f2f;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#8b7d7d;
+    margin-bottom:35px;
+}
+
+.payment-options{
+    display:flex;
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.payment-card{
+    width:170px;
+    height:120px;
+    background:#f5efea;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:0.3s;
+}
+
+.payment-card i{
+    font-size:25px;
+    color:#7a5d5d;
+}
+
+.payment-card span{
+    font-size:15px;
+    color:#5d4f4f;
+}
+
+.payment-card.active{
+    border:2px solid #c54552;
+    background:white;
+}
+
+/* FORM */
+
+.payment-form{
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    margin-bottom:40px;
+}
+
+.payment-form label,
+.shipping-form label{
+    display:block;
+    margin-top:20px;
+    margin-bottom:10px;
+    font-size:13px;
+    font-weight:600;
+    color:#594949;
+}
+
+.payment-form input,
+.shipping-form input{
+    width:100%;
+    padding:16px;
+    border:none;
+    background:#f1ece8;
+    border-radius:15px;
+    outline:none;
+    font-size:15px;
+}
+
+.row{
+    display:flex;
+    gap:20px;
+}
+
+.col{
+    flex:1;
+}
+
+.secure-box{
+    margin-top:25px;
+    background:#e7faf7;
+    color:#267a74;
+    padding:15px;
+    border-radius:12px;
+    font-size:14px;
+}
+
+.shipping-section{
+    background:#f4ece6;
+    padding:35px;
+    border-radius:25px;
+    margin-bottom:35px;
+}
+
+.shipping-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.shipping-header h2{
+    color:#3e3030;
+}
+
+.shipping-header span{
+    color:#c54552;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* BUTTON */
+
+.review-btn{
+    background:linear-gradient(to right,#c54552,#ff6b6b);
+    color:white;
+    border:none;
+    padding:18px 35px;
+    border-radius:40px;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(255,0,0,0.2);
+    transition:0.3s;
+}
+
+.review-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* RIGHT */
+
+.summary-section{
+    flex:1;
+    background:#f4ece6;
+    padding:35px;
+    border-radius:30px;
+    position:sticky;
+    top:30px;
+}
+
+.summary-section h2{
+    margin-bottom:25px;
+    color:#3d2f2f;
+}
+
+.summary-product{
+    display:flex;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.summary-product img{
+    width:75px;
+    height:75px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.summary-details h4{
+    font-size:16px;
+    margin-bottom:6px;
+    color:#443434;
+}
+
+.summary-details p{
+    font-size:14px;
+    color:#7b6d6d;
+    margin-bottom:5px;
+}
+
+.summary-details h5{
+    color:#c54552;
+    font-size:18px;
+}
+
+.price-details{
+    margin-top:30px;
+    border-top:1px solid #ddd;
+    padding-top:25px;
+}
+
+.price-row,
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:16px;
+    color:#5f5151;
+}
+
+.total-row{
+    margin-top:25px;
+    font-size:22px;
+    font-weight:700;
+    color:#c54552;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+    .checkout-page{
+        flex-direction:column;
+    }
+
+    .summary-section{
+        width:100%;
+        position:static;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .payment-options{
+        flex-direction:column;
+    }
+
+    .payment-card{
+        width:100%;
+    }
+
+    .row{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+<script>
+
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+
+    if(!this.checkValidity()){
+
+        e.preventDefault();
+
+        this.reportValidity();
+
+    }
+
+});
+
+</script>
+
+{% endblock %}
